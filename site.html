@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Коучинг, наставничество и управление командой</title>
+  <style>
+
+    .photo {
+      width: 160px;
+      aspect-ratio: 3 / 4;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #dbe4f0;
+      background:
+        linear-gradient(135deg, rgba(79,70,229,.06), rgba(255,255,255,.88)),
+        linear-gradient(180deg, #eff4fb, #ffffff);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.65);
+      flex: 0 0 auto;
+    }
+
+    .photo img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center top;
+      display:block;
+    }
+:root{
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --surface-2:#f1f5f9;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --accent:#4f46e5;
+      --accent-2:#0f766e;
+      --max:1180px;
+      --radius:24px;
+      --shadow:0 18px 50px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79,70,229,.08), transparent 26%),
+        radial-gradient(circle at 85% 10%, rgba(15,118,110,.08), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 24px}
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(18px);
+      background:rgba(255,255,255,.78);
+      border-bottom:1px solid rgba(226,232,240,.9);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+      min-height:76px;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand strong{font-size:15px; letter-spacing:.08em; text-transform:uppercase}
+    .brand span{font-size:12px; color:var(--muted)}
+    .nav-links{display:flex; gap:18px; flex-wrap:wrap; justify-content:flex-end}
+    .nav-links a{color:var(--muted); font-size:14px}
+    .nav-links a:hover{color:var(--text)}
+
+    .hero{padding:72px 0 34px}
+    .hero-grid{
+      display:grid; grid-template-columns:1.32fr .88fr; gap:28px; align-items:stretch;
+    }
+    .hero-copy, .panel, .section-card, .teacher-card, .module-card, .format-card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero-copy{padding:34px}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:9px 14px; border:1px solid rgba(79,70,229,.16);
+      background:rgba(79,70,229,.06);
+      border-radius:999px; color:#4338ca; font-size:13px;
+      margin-bottom:22px;
+    }
+    .kicker::before{
+      content:""; width:8px; height:8px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(79,70,229,.14);
+    }
+    h1{
+      margin:0 0 14px; font-size:clamp(34px, 5vw, 64px);
+      line-height:1.02; letter-spacing:-.04em;
+    }
+    .lead{font-size:18px; color:var(--muted); max-width:62ch; margin:0 0 24px}
+    .meta{
+      display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 28px
+    }
+    .pill{
+      padding:11px 14px; border-radius:999px; border:1px solid var(--line);
+      background:var(--surface-2); color:#334155; font-size:14px;
+    }
+    .actions{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:48px; padding:0 18px; border-radius:14px; font-weight:600;
+      border:1px solid transparent; transition:.2s ease;
+    }
+    .btn.primary{background:linear-gradient(135deg, var(--accent), #4338ca); color:white}
+    .btn.primary:hover{transform:translateY(-1px); filter:brightness(1.03)}
+    .btn.secondary{background:var(--surface); border-color:var(--line); color:var(--text)}
+    .btn.secondary:hover{border-color:rgba(79,70,229,.34)}
+
+    .panel{padding:28px}
+    .panel h3{margin:0 0 14px; font-size:20px}
+    .stats{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .stat{
+      padding:18px; border:1px solid var(--line); border-radius:18px;
+      background:var(--surface-2);
+    }
+    .stat b{display:block; font-size:28px; line-height:1}
+    .stat span{display:block; margin-top:8px; color:var(--muted); font-size:13px}
+    .note{
+      margin-top:16px; padding:16px; border-radius:18px;
+      background:rgba(15,118,110,.08); border:1px solid rgba(15,118,110,.16);
+      color:#0f766e; font-size:14px;
+    }
+
+    section{padding:26px 0}
+    .section-card{padding:28px}
+    .section-head{
+      display:flex; justify-content:space-between; gap:16px; align-items:end; flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .section-head h2{
+      margin:0; font-size:clamp(24px, 3vw, 38px); letter-spacing:-.03em;
+    }
+    .section-head p{margin:0; color:var(--muted); max-width:70ch}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+
+    .card{
+      padding:20px; border-radius:20px; border:1px solid var(--line);
+      background:var(--surface-2);
+      min-height:100%;
+    }
+    .card h3{margin:0 0 10px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+    .card .tag{
+      display:inline-flex; margin-bottom:12px; font-size:12px; letter-spacing:.08em;
+      text-transform:uppercase; color:#4f46e5;
+    }
+
+    .audience-list{
+      display:grid; grid-template-columns:repeat(5,1fr); gap:14px;
+    }
+    .audience-item{
+      padding:18px; border-radius:18px; border:1px solid var(--line);
+      background:var(--surface-2);
+    }
+    .audience-item strong{display:block; margin-bottom:8px}
+    .audience-item span{color:var(--muted); font-size:14px}
+
+    .modules{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    }
+    .module-card{padding:20px}
+    .module-top{display:flex; justify-content:space-between; gap:10px; margin-bottom:14px; align-items:start}
+    .module-no{
+      font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+      color:#4338ca;
+    }
+    .module-hours{
+      font-size:13px; color:#334155; padding:7px 10px; border-radius:999px;
+      border:1px solid var(--line); white-space:nowrap; background:var(--surface-2);
+    }
+    .module-card h3{margin:0 0 12px; font-size:18px}
+    .module-card ul{margin:0; padding-left:18px; color:var(--muted)}
+    .module-card li{margin:8px 0}
+
+    .method-grid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    }
+    .method{
+      padding:18px; border-radius:18px; border:1px solid var(--line);
+      background:var(--surface-2);
+    }
+    .method b{display:block; margin-bottom:8px}
+    .method p{margin:0; color:var(--muted)}
+
+    .formats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+    .format-card{padding:22px}
+    .format-card .num{
+      display:inline-flex; width:34px; height:34px; align-items:center; justify-content:center;
+      border-radius:12px; background:rgba(79,70,229,.10); color:#4338ca; margin-bottom:14px;
+      font-weight:700;
+    }
+    .format-card h3{margin:0 0 10px}
+    .format-card p{margin:0; color:var(--muted)}
+
+    .teachers{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+    .teacher-card{padding:22px; display:grid; grid-template-columns:160px 1fr; gap:18px; align-items:start}
+    .photo{
+      width:160px; aspect-ratio:3/4; border-radius:22px; border:1px dashed #cbd5e1;
+      background:
+        linear-gradient(135deg, rgba(79,70,229,.08), rgba(255,255,255,.8)),
+        repeating-linear-gradient(45deg, rgba(148,163,184,.08) 0 10px, rgba(255,255,255,.1) 10px 20px);
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      color:#475569; font-size:14px; padding:16px;
+    }
+    .teacher-card h3{margin:0 0 6px; font-size:22px}
+    .role{color:#4338ca; margin-bottom:12px; font-size:14px}
+    .teacher-stats{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0
+    }
+    .teacher-stats div{
+      padding:12px; border:1px solid var(--line); border-radius:16px;
+      background:var(--surface-2);
+    }
+    .teacher-stats b{display:block; font-size:20px}
+    .teacher-stats span{color:var(--muted); font-size:12px}
+    .teacher-card ul{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .teacher-card li{margin:8px 0}
+
+    .cta{
+      padding:34px; border-radius:28px; border:1px solid rgba(79,70,229,.18);
+      background:linear-gradient(180deg, rgba(79,70,229,.06), rgba(255,255,255,.92));
+      box-shadow:var(--shadow);
+      display:flex; justify-content:space-between; gap:20px; align-items:center; flex-wrap:wrap;
+    }
+    .cta h2{margin:0 0 10px; font-size:clamp(26px, 4vw, 42px)}
+    .cta p{margin:0; color:var(--muted); max-width:56ch}
+
+    footer{
+      padding:24px 0 40px; color:var(--muted); font-size:13px;
+    }
+
+    .fade-in{opacity:0; transform:translateY(18px); transition:.6s ease}
+    .fade-in.visible{opacity:1; transform:none}
+
+    @media (max-width: 1100px){
+      .hero-grid,.modules,.method-grid,.formats,.audience-list,.grid-3,.grid-2,.teachers{grid-template-columns:1fr 1fr}
+      .teacher-card{grid-template-columns:140px 1fr}
+    }
+    @media (max-width: 760px){
+      .nav-inner{flex-direction:column; align-items:flex-start; padding:14px 0}
+      .hero{padding-top:28px}
+      .hero-grid,.modules,.method-grid,.formats,.audience-list,.grid-3,.grid-2,.teachers{grid-template-columns:1fr}
+      .hero-copy,.panel,.section-card,.cta{padding:22px}
+      .teacher-card{grid-template-columns:1fr}
+      .photo{width:100%; aspect-ratio:4/3}
+      .teacher-stats{grid-template-columns:1fr}
+      .nav-links{gap:12px}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <strong>Программа для руководителей · 2026</strong>
+        <span>Коучинг, наставничество и управление командой</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#context">Контекст</a>
+        <a href="#audience">Для кого</a>
+        <a href="#program">Программа</a>
+        <a href="#teachers">Преподаватели</a>
+        <a href="#contact">Контакт</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy fade-in">
+          <div class="kicker">Инструменты эффективного руководителя · 72 часа · 100% онлайн</div>
+          <h1>Коучинг, наставничество и управление командой</h1>
+          <p class="lead">
+            Практическая программа для руководителей, HR и наставников, которые хотят развивать людей,
+            усиливать вовлечённость и строить сильные команды в условиях смены поколений.
+          </p>
+          <div class="meta">
+            <span class="pill">Повышение квалификации</span>
+            <span class="pill">MBA / Магистратура</span>
+            <span class="pill">4 модуля</span>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#contact">Обсудить партнёрство</a>
+            <a class="btn secondary" href="#program">Смотреть программу</a>
+          </div>
+        </div>
+        <aside class="panel fade-in">
+          <h3>Ключевые параметры</h3>
+          <div class="stats">
+            <div class="stat"><b>72</b><span>часа обучения</span></div>
+            <div class="stat"><b>4</b><span>модуля</span></div>
+            <div class="stat"><b>70%</b><span>практики</span></div>
+            <div class="stat"><b>100%</b><span>онлайн</span></div>
+          </div>
+          <div class="note">
+            Программа готова к запуску и подходит как самостоятельный курс, модуль в MBA или дисциплина по выбору.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="context">
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Почему это актуально сейчас</h2>
+            <p>Курс опирается на реальные управленческие вызовы: смена ожиданий сотрудников, удержание талантов и запрос на лидерство нового типа.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <span class="tag">Смена поколений</span>
+            <h3>Директивный стиль теряет эффективность</h3>
+            <p>Сотрудникам поколений Y и Z нужны вовлечённость, обратная связь и влияние на результат.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Удержание талантов</span>
+            <h3>Люди уходят не только из-за денег</h3>
+            <p>Развитие, поддержка и качество управления становятся ключевыми факторами удержания.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Лидер нового типа</span>
+            <h3>Нужны доверие и раскрытие потенциала</h3>
+            <p>Современный руководитель умеет развивать команду, а не только контролировать результат.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience">
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Для кого программа</h2>
+            <p>Лендинг можно использовать для набора на открытое обучение или для партнёрской интеграции в образовательные траектории.</p>
+          </div>
+        </div>
+        <div class="audience-list">
+          <div class="audience-item"><strong>Руководители</strong><span>От линейных до топ-менеджмента</span></div>
+          <div class="audience-item"><strong>HR-директора</strong><span>Развитие персонала и управленческих практик</span></div>
+          <div class="audience-item"><strong>Наставники</strong><span>Внутренние тренеры и менторы</span></div>
+          <div class="audience-item"><strong>PM и лидеры команд</strong><span>Управление проектами и людьми</span></div>
+          <div class="audience-item"><strong>Собственники бизнеса</strong><span>Развитие управленческой команды</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="program">
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Структура программы</h2>
+            <p>Четыре модуля выстроены от базовых инструментов коучинга до командной работы и фасилитации.</p>
+          </div>
+        </div>
+        <div class="modules">
+          <article class="module-card">
+            <div class="module-top">
+              <div class="module-no">М01</div>
+              <div class="module-hours">24 часа</div>
+            </div>
+            <h3>Базовые навыки лидера-коуча</h3>
+            <ul>
+              <li>Принципы коучинга в организации</li>
+              <li>Диалог, вопросы, модель GROW</li>
+              <li>Структура коучинговой сессии</li>
+              <li>Развивающая обратная связь</li>
+            </ul>
+          </article>
+          <article class="module-card">
+            <div class="module-top">
+              <div class="module-no">М02</div>
+              <div class="module-hours">8 часов</div>
+            </div>
+            <h3>Наставничество и поколения</h3>
+            <ul>
+              <li>Особенности X, Y, Z</li>
+              <li>Цикл наставничества</li>
+              <li>Методы обучения и передачи опыта</li>
+              <li>Индивидуальные планы развития</li>
+            </ul>
+          </article>
+          <article class="module-card">
+            <div class="module-top">
+              <div class="module-no">М03</div>
+              <div class="module-hours">8 часов</div>
+            </div>
+            <h3>Эмоциональный интеллект лидера</h3>
+            <ul>
+              <li>Модели EQ и осознанность</li>
+              <li>Управление эмоциями и стрессом</li>
+              <li>Профилактика выгорания</li>
+              <li>Психологическая безопасность команды</li>
+            </ul>
+          </article>
+          <article class="module-card">
+            <div class="module-top">
+              <div class="module-no">М04</div>
+              <div class="module-hours">6 часов</div>
+            </div>
+            <h3>Фасилитация и командный коучинг</h3>
+            <ul>
+              <li>Основы фасилитации</li>
+              <li>Групповая динамика</li>
+              <li>Стратегические сессии и воркшопы</li>
+              <li>Самоорганизующаяся команда</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Формат обучения</h2>
+            <p>Сохранил все ключевые элементы из презентации: практика, дистанционный формат и рабочие материалы.</p>
+          </div>
+        </div>
+        <div class="method-grid">
+          <div class="method"><b>70% практика / 30% теория</b><p>Фокус на прикладных инструментах и отработке навыков.</p></div>
+          <div class="method"><b>Вебинары в реальном времени</b><p>Живое взаимодействие с преподавателем и группой.</p></div>
+          <div class="method"><b>Практика между занятиями</b><p>Применение инструментов в рабочей среде под наблюдением.</p></div>
+          <div class="method"><b>Рабочие тетради</b><p>Материалы для закрепления навыков и рефлексии.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Форматы интеграции</h2>
+            <p>Программа легко встраивается в разные образовательные продукты без потери структуры и логики.</p>
+          </div>
+        </div>
+        <div class="formats">
+          <div class="format-card">
+            <div class="num">I</div>
+            <h3>Повышение квалификации</h3>
+            <p>Самостоятельная программа для руководителей и HR-специалистов с документом установленного образца.</p>
+          </div>
+          <div class="format-card">
+            <div class="num">II</div>
+            <h3>Модуль в MBA</h3>
+            <p>Усиление управленческого блока практическими инструментами коучинга и лидерства.</p>
+          </div>
+          <div class="format-card">
+            <div class="num">III</div>
+            <h3>Дисциплина в магистратуре</h3>
+            <p>Актуальный выборочный курс для слушателей с управленческим опытом.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="teachers">
+      <div class="container section-card fade-in">
+        <div class="section-head">
+          <div>
+            <h2>Преподаватели программы</h2>
+            <p>В блоке оставлено место под две фотографии, чтобы можно было сразу подставить портреты в финальной версии сайта.</p>
+          </div>
+        </div>
+        <div class="teachers">
+          <article class="teacher-card">
+            <div class="photo"> <!-- ЗАМЕНИТЕ: путь к фото, если файлы лежат не в папке images -->
+              <img src="images/margarita.jpg" alt="Маргарита Кучеренко" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <h3>Маргарита Кучеренко, PhD</h3>
+              <div class="role">Executive-коуч PCC ICF · Бизнес-тренер · Ментор</div>
+              <div class="teacher-stats">
+                <div><b>2500+</b><span>часов коучинга и менторинга</span></div>
+                <div><b>300+</b><span>руководителей обучены</span></div>
+                <div><b>25+</b><span>лет в топ-менеджменте</span></div>
+              </div>
+              <p style="color:var(--muted); margin:0 0 8px;">Ключевой опыт:</p>
+              <ul>
+                <li>Ex-CEO федеральной розничной сети телеком-оператора</li>
+                <li>Опыт в Роснефти, Ростелекоме, Росбанке и Societe Generale</li>
+                <li>Автор программ по коучингу, лидерству и управленческим компетенциям</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="teacher-card">
+            <div class="photo"> <!-- ЗАМЕНИТЕ: путь к фото, если файлы лежат не в папке images -->
+              <img src="images/irina.jpg" alt="Ирина Супруненко" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <h3>Ирина Супруненко</h3>
+              <div class="role">Executive-коуч PCC ICF · Бизнес-тренер · Ментор · Предприниматель</div>
+              <div class="teacher-stats">
+                <div><b>700+</b><span>часов консультаций</span></div>
+                <div><b>200+</b><span>клиентов из корпораций и банков</span></div>
+                <div><b>50+</b><span>выпускников кадрового резерва</span></div>
+              </div>
+              <p style="color:var(--muted); margin:0 0 8px;">Ключевой опыт:</p>
+              <ul>
+                <li>Создание корпоративных учебных центров с нуля</li>
+                <li>Внедрение наставничества, мотивации и аттестации персонала</li>
+                <li>Опыт в госкорпорациях, банках, ритейле и страховании</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container cta fade-in">
+        <div>
+          <h2>Готовы обсудить формат запуска</h2>
+          <p>Свяжитесь с нами для получения дополнительной информации и обсуждения деталей.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="mailto:isuprunenko@mail.ru">Написать</a>
+          <a class="btn secondary" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Наверх</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Маргарита Кучеренко · Ирина Супруненко · Март 2026
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ЗАМЕНИТЕ: при необходимости обновите ссылки навигации, если добавите или переименуете секции
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach(a => a.style.color = 'var(--muted)');
+        const active = links.find(a => a.getAttribute('href') === '#' + entry.target.id);
+        if (active) active.style.color = 'var(--text)';
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+
+    sections.forEach(sec => navObserver.observe(sec));
+  </script>
+</body>
+</html>
