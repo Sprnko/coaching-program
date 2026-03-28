@@ -26,7 +26,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center top;
+      object-position:center center;
       display:block;
     }
 :root{
@@ -54,6 +54,8 @@
         radial-gradient(circle at 85% 10%, rgba(15,118,110,.08), transparent 22%),
         linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       line-height:1.6;
+      -webkit-text-size-adjust:100%;
+      text-size-adjust:100%;
     }
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 24px}
@@ -144,7 +146,7 @@
     .section-head h2{
       margin:0; font-size:clamp(24px, 3vw, 38px); letter-spacing:-.03em;
     }
-    .section-head p{margin:0; color:var(--muted); max-width:70ch}
+    .section-head p{margin:0; color:var(--muted); max-width:70ch; font-size:15px}
     .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
     .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
 
@@ -208,7 +210,7 @@
     .format-card p{margin:0; color:var(--muted)}
 
     .teachers{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
-    .teacher-card{padding:22px; display:grid; grid-template-columns:160px 1fr; gap:18px; align-items:start}
+    .teacher-card{padding:22px; display:grid; grid-template-columns:160px 1fr; gap:18px; align-items:start; overflow:hidden}
     .photo{
       width:160px; aspect-ratio:3/4; border-radius:22px; border:1px dashed #cbd5e1;
       background:
@@ -252,14 +254,50 @@
       .teacher-card{grid-template-columns:140px 1fr}
     }
     @media (max-width: 760px){
+      .container{padding:0 16px}
       .nav-inner{flex-direction:column; align-items:flex-start; padding:14px 0}
-      .hero{padding-top:28px}
+      .nav-links{gap:10px; row-gap:8px}
+      .nav-links a{font-size:13px}
+      .hero{padding:22px 0 22px}
       .hero-grid,.modules,.method-grid,.formats,.audience-list,.grid-3,.grid-2,.teachers{grid-template-columns:1fr}
-      .hero-copy,.panel,.section-card,.cta{padding:22px}
-      .teacher-card{grid-template-columns:1fr}
-      .photo{width:100%; aspect-ratio:4/3}
+      .hero-copy,.panel,.section-card,.cta{padding:18px}
+      .hero-copy h1{font-size:clamp(30px, 9vw, 40px); line-height:1.04}
+      .lead{font-size:16px}
+      .section-head{flex-direction:column; align-items:flex-start}
+      .section-head h2{font-size:clamp(22px, 7vw, 30px)}
+      .section-head p{font-size:14px}
+      .card,.module-card,.format-card,.method,.audience-item,.stat{padding:16px}
+      .modules,.method-grid,.formats,.audience-list,.grid-3,.grid-2{gap:12px}
+      .teacher-card{
+        grid-template-columns:1fr;
+        justify-items:stretch;
+        text-align:left;
+        gap:16px;
+        padding:18px;
+      }
+      .photo{
+        width:100%;
+        max-width:320px;
+        aspect-ratio:4/5;
+        margin:0 auto;
+        border-radius:20px;
+        background:#fff;
+      }
+      .photo img{
+        object-fit:contain;
+        object-position:center center;
+        padding:10px;
+        background:#fff;
+      }
       .teacher-stats{grid-template-columns:1fr}
-      .nav-links{gap:12px}
+      .teacher-card h3{font-size:20px}
+      .role{font-size:13px}
+      .module-card h3,.card h3,.format-card h3{font-size:17px}
+      .meta,.actions{gap:10px}
+      .pill{padding:9px 12px; font-size:13px}
+      .btn{min-height:44px; padding:0 16px}
+      .stats{grid-template-columns:1fr 1fr}
+      .teacher-card ul,.card p,.module-card ul,.method p,.format-card p,.audience-item span{font-size:14px}
     }
   </style>
 </head>
@@ -485,8 +523,8 @@
               <img src="images/margarita.jpg" alt="Маргарита Кучеренко" loading="lazy" decoding="async">
             </div>
             <div>
-              <h3>Маргарита Кучеренко, PhD</h3>
-              <div class="role">Executive-коуч PCC ICF · Бизнес-тренер · Ментор</div>
+              <h3>Маргарита Кучеренко</h3>
+              <div class="role">Executive-коуч PCC ICF · Бизнес-тренер · Ментор · PhD</div>
               <div class="teacher-stats">
                 <div><b>2500+</b><span>часов коучинга и менторинга</span></div>
                 <div><b>300+</b><span>руководителей обучены</span></div>
